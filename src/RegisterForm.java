@@ -38,11 +38,11 @@ public class RegisterForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        lntxt = new javax.swing.JTextField();
-        fntxt = new javax.swing.JTextField();
-        unmtxt = new javax.swing.JTextField();
-        rpwf = new javax.swing.JPasswordField();
         save = new javax.swing.JButton();
+        fntxt = new javax.swing.JTextField();
+        lntxt = new javax.swing.JTextField();
+        untxt = new javax.swing.JTextField();
+        rpwf = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,15 +76,15 @@ public class RegisterForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
+                                .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lntxt)
-                                    .addComponent(fntxt)))
+                                .addComponent(lntxt))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fntxt, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -92,11 +92,11 @@ public class RegisterForm extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(unmtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE))))
+                                .addComponent(untxt, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(130, 130, 130)
                         .addComponent(jLabel5)))
-                .addContainerGap())
+                .addContainerGap(42, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(save)
@@ -107,23 +107,27 @@ public class RegisterForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
-                .addGap(22, 22, 22)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(fntxt, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
+                    .addComponent(fntxt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(lntxt, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
+                    .addComponent(lntxt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(unmtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(rpwf, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                    .addComponent(untxt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(rpwf)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(save)
                 .addGap(19, 19, 19))
         );
@@ -131,61 +135,48 @@ public class RegisterForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
- try {
-     Class.forName("com.mysql.jdbc.Driver");
-     Connection con = DriverManager.getConnection(conUrl);
-     
+
      String sfntxt = fntxt.getText();
      String slntxt = lntxt.getText();
-     String sunmtxt = unmtxt.getText();
-     String srpwf = new String(rpwf.getPassword());
-     
-     if (sfntxt.isEmpty() && slntxt.isEmpty() && sunmtxt.isEmpty() && srpwf.isEmpty()) {
-         JOptionPane.showMessageDialog(rootPane, "Please Fill Up all the Information Needed");
-         
-     }else {
-         PreparedStatement ppstmt = con.prepareStatement("Select * from RegisterForm where username like ? or password like ? ");
-         ppstmt.setString(1, "%" + sunmtxt);
-         ppstmt.setString(2, "%" + srpwf);
-         ResultSet rs = ppstmt.executeQuery();
-         if  (rs.next()) {
-          JOptionPane.showMessageDialog(rootPane, "Username or Password already exist");
-         
-         }else {
-             PreparedStatement pstmt = con.prepareStatement("Insert into RegistrationForm(`fname`, `lname`, `username`, `password`) VALUES"
-             + " (?, ?,  ?, ?");
+     String suntxt = untxt.getText();
+     String srpwf = String.valueOf(rpwf.getPassword());
+     try{
+          Class.forName("com.mysql.jdbc.Driver");
+     Connection con = DriverManager.getConnection(conUrl);
+     PreparedStatement pstmt = con.prepareStatement ("INSERT INTO `registertbl`(`Username`, `Password`, `fname`, `lname`)"
+             + "VALUES (?,?,?,?);");
              pstmt.setString(1, sfntxt);
              pstmt.setString(2, slntxt);
-             pstmt.setString(3, sunmtxt);
+             pstmt.setString(3, suntxt); 
              pstmt.setString(4, srpwf);
              pstmt.executeUpdate();
+             JOptionPane.showMessageDialog(rootPane, "Success", "Succesfully Saved",JOptionPane.INFORMATION_MESSAGE);
+             this.setVisible(false);
              
-             JOptionPane.showMessageDialog(rootPane, "Success");
-             
-             
-                        
-         }
-     }
-     
-     
- }      catch (ClassNotFoundException ex) {
-            Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+                
+ }      catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(RegisterForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+     
+            
+     
+  public void c(){
+      fntxt.setText("");
+      lntxt.setText("");
+      untxt.setText("");
+      rpwf.setText("");
+      
         
         
         
         
-        
+
     }//GEN-LAST:event_saveActionPerformed
-public void c(){
-    fntxt.setText("");
-    lntxt.setText("");
-    unmtxt.setText("");
-    rpwf.setText("");
-}
+
+
     /**
      * @param args the command line arguments
      */
@@ -231,6 +222,6 @@ public void c(){
     private javax.swing.JTextField lntxt;
     private javax.swing.JPasswordField rpwf;
     private javax.swing.JButton save;
-    private javax.swing.JTextField unmtxt;
+    private javax.swing.JTextField untxt;
     // End of variables declaration//GEN-END:variables
 }

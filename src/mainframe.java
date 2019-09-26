@@ -8,6 +8,7 @@ import static Configurator.Connection.conUrl;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
+import java.sql.*;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -25,6 +26,7 @@ public class mainframe extends javax.swing.JFrame {
      */
     public mainframe() {
         initComponents();
+       
     }
 
     /**
@@ -60,6 +62,11 @@ public class mainframe extends javax.swing.JFrame {
         });
 
         reg.setText("REGISTER");
+        reg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,40 +113,51 @@ public class mainframe extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-      String Suntxt = untxt.getText();
-      String Spwf = new String (pwf.getPassword());
+
+//      String Suntxt = untxt.getText();
+//      String Spwf = new String (pwf.getPassword());
       try{
           Class.forName("com.mysql.jdbc.Driver");
           
           Connection con = DriverManager.getConnection(conUrl);
+          String sql = ("SELECT * FROM registertbl  WHERE Username = ? and "
+                  + "Password = ?;");
           
-          PreparedStatement pstmt = con.prepareStatement ("SELECT * FROM Register"
-                  + " WHERE username = ? 'password' = MD5(?);");
-          
-          pstmt.setString(1, Suntxt);
-          pstmt.setString(2, Spwf);
+          PreparedStatement pstmt = con.prepareStatement(sql);
+        
+          pstmt.setString(1, untxt.getText());
+          pstmt.setString(2, pwf.getText());
           
   ResultSet rs = pstmt.executeQuery();
   
   if(rs.next()) {
-      welcome wc = new welcome();
-      String id = rs.getString("id");
-      String name = rs.getString("Username");
-      wc.setVisible(true);
+      JOptionPane.showMessageDialog(null, "Account Matched");
+      Product p = new Product();
+      p.setVisible(true);
+      setVisible(false);
     
       
   }else{
-      JOptionPane.showMessageDialog(rootPane, "ERORs");
+      JOptionPane.showMessageDialog(rootPane, "ERROR");
   }
           
       } catch (ClassNotFoundException ex) {
             Logger.getLogger(mainframe.class.getName()).log(Level.SEVERE, null, ex);
+            {
+            
+            }
         } catch (SQLException ex) {
             Logger.getLogger(mainframe.class.getName()).log(Level.SEVERE, null, ex);
         }
       
     }//GEN-LAST:event_loginActionPerformed
+
+    private void regActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regActionPerformed
+          RegisterForm rf = new RegisterForm();
+        rf.setVisible(true);
+    }//GEN-LAST:event_regActionPerformed
 
     /**
      * @param args the command line arguments
