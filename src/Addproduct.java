@@ -20,7 +20,7 @@ import java.sql.SQLException;
 public class Addproduct {
      Connect con = new Connect();  
    public int adproductframe(String Product_name, int Quantity, double price) {
-   int a = 0;
+   int r = 0;
      try{
      Class.forName("com.mysql.jdbc.Driver");
      Connection conn = DriverManager.getConnection(conUrl);
@@ -33,14 +33,15 @@ public class Addproduct {
      psmt.setInt(2, Quantity);
      psmt.setDouble(3,price);
      
-       a = psmt.executeUpdate();
+       r = psmt.executeUpdate();
      
-    System.out.println(psmt);
+    //System.out.println(psmt);
    
 } catch (ClassNotFoundException | SQLException ex) {
      java.util.logging.Logger.getLogger(addproductframe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 }
-        return a;
+        return r;
    }
+  
 }
-   
+

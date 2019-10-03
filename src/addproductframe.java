@@ -27,6 +27,12 @@ public class addproductframe extends javax.swing.JFrame {
         initComponents();
     }
 
+public void clearaddproductframe(){
+        producttxt.setText(null);
+        qty.setValue(0);
+        priceff.setText(null);
+        producttxt.requestFocus();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,6 +49,7 @@ public class addproductframe extends javax.swing.JFrame {
         qty = new javax.swing.JSpinner();
         priceff = new javax.swing.JFormattedTextField();
         addbtn = new javax.swing.JButton();
+        addbtn1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +73,13 @@ public class addproductframe extends javax.swing.JFrame {
             }
         });
 
+        addbtn1.setText("Close");
+        addbtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addbtn1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,10 +100,12 @@ public class addproductframe extends javax.swing.JFrame {
                     .addComponent(producttxt)
                     .addComponent(priceff))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(168, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(45, 45, 45)
                 .addComponent(addbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(151, 151, 151))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                .addComponent(addbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,9 +122,11 @@ public class addproductframe extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
                     .addComponent(priceff, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
-                .addComponent(addbtn)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addbtn)
+                    .addComponent(addbtn1))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         pack();
@@ -123,12 +141,19 @@ double sprice = Double.parseDouble(priceff.getValue().toString());
 int a = Pa.adproductframe(sproduct, sqyt, sprice);
 if (a == 1){
     JOptionPane.showMessageDialog(p, "Saved","SAVED",JOptionPane.INFORMATION_MESSAGE);
+    p.refresh();
 }else{
     JOptionPane.showMessageDialog(p, "DATA NOT SAVED");
 }
         
         
     }//GEN-LAST:event_addbtnActionPerformed
+
+    private void addbtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addbtn1ActionPerformed
+      this.setVisible(false);
+      Product p = new Product();
+      p.setVisible(true);
+    }//GEN-LAST:event_addbtn1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,6 +192,7 @@ if (a == 1){
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addbtn;
+    private javax.swing.JButton addbtn1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -174,4 +200,33 @@ if (a == 1){
     private javax.swing.JTextField producttxt;
     private javax.swing.JSpinner qty;
     // End of variables declaration//GEN-END:variables
+
+    int deleteProduct(Object id) {
+       int r = 0;
+        
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection Connect = (Connection) DriverManager.getConnection(conUrl);
+            
+            String sql = "DELETE FROM addproducttbl WHERE id = ?;";
+            PreparedStatement pstmt = (PreparedStatement) Connect.prepareStatement(sql);
+            
+            int newid = Integer.parseInt(id.toString());
+            
+            pstmt.setInt(1, newid);
+            
+            r = pstmt.executeUpdate();
+            //System.out.println(pstmt);
+     
+       
+        } catch (ClassNotFoundException ex) {
+             java.util.logging.Logger.getLogger(Addproduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+         } catch (SQLException ex) {
+             java.util.logging.Logger.getLogger(Addproduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+         }
+         return r;
+    }
+
+    
+
 }

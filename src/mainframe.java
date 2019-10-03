@@ -26,6 +26,7 @@ public class mainframe extends javax.swing.JFrame {
      */
     public mainframe() {
         initComponents();
+        this.setLocationRelativeTo(null);
        
     }
 
@@ -134,7 +135,7 @@ public class mainframe extends javax.swing.JFrame {
   
   if(rs.next()) {
       JOptionPane.showMessageDialog(null, "Account Matched");
-      Product p = new Product();
+      Product p = new Product(untxt.getText());
       p.setVisible(true);
       setVisible(false);
     
