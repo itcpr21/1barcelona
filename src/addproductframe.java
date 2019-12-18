@@ -25,6 +25,7 @@ public class addproductframe extends javax.swing.JFrame {
      */
     public addproductframe() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
 public void clearaddproductframe(){
